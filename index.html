@@ -77,7 +77,7 @@
                 <button onclick="enterKey('7')">7</button>
                 <button onclick="enterKey('8')">8</button>
                 <button onclick="enterKey('9')">9</button>
-                <button onclick="enterKey('x')">x</button>
+                <button onclick="enterKey('*')">x</button>
             </div>
             <div class="key-rows">
                 <button onclick="enterKey('4')">4</button>
@@ -103,8 +103,11 @@
 
     <script>
 
-        let inputs = '';
+        let inputs = localStorage.getItem('calculation') || '';
         let inputField = document.getElementById('input-field');
+
+        inputField.setAttribute('value', inputs);
+            inputField.innerHTML = inputs; 
 
         // A function for inserting new key
         function enterKey(key) {
@@ -112,6 +115,9 @@
             inputs += key;
             inputField.setAttribute('value', inputs);
             inputField.innerHTML = inputs;
+
+            // Save to the local storage
+            localStorage.setItem('calculation', inputs);
           
         }
 
@@ -119,15 +125,21 @@
         function calculate() {
 
             let results = eval(inputs);
+            console.log(results);
             /* alert(`
                 ${inputs}\n
-                ${results}
+                    ${results}
             `); */
 
             inputs = results;
 
             inputField.setAttribute('value', results);
             inputField.innerHTML = results; 
+
+              // Save to the local storage
+              localStorage.setItem('calculation', inputs);
+
+           
         }
 
         // A function that clears all inputted values 
@@ -135,14 +147,18 @@
             inputs = '';
             inputField.setAttribute('value', inputs);
             inputField.innerHTML = inputs;
+
+            localStorage.removeItem('calculation');
         }
 
+        // Removes the last key to the input field
         function removeLastKey() {
 
             inputs = inputs.slice(0, -1);
             inputField.setAttribute('value', inputs);
             inputField.innerHTML = inputs;
 
+            localStorage.setItem('calculation', inputs);
         }
  
     </script>
