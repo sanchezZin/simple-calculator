@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculator</title>
+    <style>
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+            font-weight: bold;
+        }
+
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .calculator-container {
+         
+            height: 600px;
+            width: 800px;
+        }
+
+        .calculator-container input {
+            width: 100%;
+            height: 10%;
+            padding: 0 1rem;
+            font-size: 1.5rem;
+            
+        }
+
+        .calculator-container .key-pads {
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+            height: 90%;
+            background: red;
+         
+        }
+
+        .calculator-container .key-pads .key-rows {
+            background: gray;
+            height: 100%;
+            display: flex;
+          
+        }
+
+        button {
+            width: 100%;
+            font-size: 1rem;
+            cursor: pointer;
+        }
+        
+        button:hover {
+            background: gray;
+        }
+        
+    </style>
+</head>
+<body>
+    
+    <div class="calculator-container">
+        <input type="text" name="" id="input-field" class="input-field" disabled>
+        <div class="key-pads">
+            <div class="key-rows">
+                <button onclick="clearAll()">Clear All</button>
+                <button onclick="removeLastKey() ">Remove</button>
+               
+            </div>
+            <div class="key-rows">
+                <button onclick="enterKey('7')">7</button>
+                <button onclick="enterKey('8')">8</button>
+                <button onclick="enterKey('9')">9</button>
+                <button onclick="enterKey('x')">x</button>
+            </div>
+            <div class="key-rows">
+                <button onclick="enterKey('4')">4</button>
+                <button onclick="enterKey('5')">5</button>
+                <button onclick="enterKey('6')">6</button>
+                <button onclick="enterKey('-')">-</button>
+            </div>
+            <div class="key-rows">
+                <button onclick="enterKey('1')">1</button>
+                <button onclick="enterKey('2')">2</button>
+                <button onclick="enterKey('3')">3</button>
+                <button onclick="enterKey('+')">+</button>
+            </div>
+            <div class="key-rows">
+              
+                <button onclick="enterKey('0')">0</button>
+               
+                <button onclick="calculate()">=</button>
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+
+        let inputs = '';
+        let inputField = document.getElementById('input-field');
+
+        // A function for inserting new key
+        function enterKey(key) {
+
+            inputs += key;
+            inputField.setAttribute('value', inputs);
+            inputField.innerHTML = inputs;
+          
+        }
+
+        // A function that calculates the value and display a result
+        function calculate() {
+
+            let results = eval(inputs);
+            /* alert(`
+                ${inputs}\n
+                ${results}
+            `); */
+
+            inputs = results;
+
+            inputField.setAttribute('value', results);
+            inputField.innerHTML = results; 
+        }
+
+        // A function that clears all inputted values 
+        function clearAll() {
+            inputs = '';
+            inputField.setAttribute('value', inputs);
+            inputField.innerHTML = inputs;
+        }
+
+        function removeLastKey() {
+
+            inputs = inputs.slice(0, -1);
+            inputField.setAttribute('value', inputs);
+            inputField.innerHTML = inputs;
+
+        }
+ 
+    </script>
+
+</body>
+</html>
